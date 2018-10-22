@@ -15,7 +15,8 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <div>
-            {parseInt(this.props.store.getState().param.join(""))}
+            {this.props.store.getState().operator && this.props.store.getState().param}
+            {!this.props.store.getState().operator && this.props.store.getState().result}
           </div>
           <div className="button-section">
             <Number store={this.props.store} number={7} />

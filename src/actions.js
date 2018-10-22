@@ -3,7 +3,7 @@ import * as values from './variable';
 export const paramInput = (input) => {
   return {
     type : values.PARAM,
-    param: input
+    input: input
   }
 }
 

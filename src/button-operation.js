@@ -12,12 +12,14 @@ class OperBtn extends Component {
     }
     else {
       this.props.store.dispatch(Actions.showResult(this.props.op));
-      console.log(this.props.store.getState().param);
+      console.log(this.props.store.getState().result);
     }
   }
   render() {
     return (
-      <button onClick={this.inputOp}>{this.props.op}</button>
+      <button onClick={this.inputOp}>
+        {this.props.op}
+      </button>
     )
   }
 }

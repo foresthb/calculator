@@ -12,12 +12,29 @@ function operation(a, op, b) {
 
 const calReducer = (state = values.defaultState, action) => {
   switch (action.type) {
-    case values.PARAM: return {...state, param: [...state.param, action.param]};
-    case values.OPERATOR: const pr = state.param; return {...state, param: [0], operator: action.operator, result: operation(state.result, action.operator, parseInt(pr.join(""))), end: false};
+    case values.PARAM:
+      const pr1 = [...state.input, action.input];
+      if(state.operator) {
+        return {...state, param: parseInt(pr1.join("")), input: pr1};
+      }
+      else {
+        return {...state, param: parseInt(pr1.join("")), input: pr1, result: parseInt(pr1.join(""))};
+      }
+    case values.OPERATOR:
+      const pr2 = state.param;
+      if(!state.operator) {
+        return {...state, param: 0, input: [] ,operator: action.operator, result: pr2};
+      }
+      else {
+        return {...state, param: 0, input: [] ,operator: action.operator, result: operation(state.result, action.operator, pr2)};
+      }
     case values.RESULT:
-      if(action.op === "=") {const pr = operation(state.result, state.operator, parseInt(state.param.join(""))); return {...state,param: [...pr.toString()]};}
-      else if(action.op === "C") return {param: [0], operator: '', result: 0};
-      else return state;
+      if(action.op === "=") {
+        const pr3 = operation(state.result, state.operator, state.param);
+        return {param: 0, input: [], operator: '', result: pr3};
+      }
+      else 
+        return {param: 0, input: [], operator: '', result: 0};
     default: return state;
   }
 }
